@@ -1,4 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
+using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace RequestAnalysis
 {
@@ -14,39 +21,8 @@ namespace RequestAnalysis
 
         public void AnalysisJson()
         {
-            JObject jo = new JObjec t(this._jsonStr);
-            var test = JsonTools.JsonToObject<deviceInfo>(this._jsonStr);
+            
         }
     }
 
-    public class deviceInfo
-    {
-        public string deviceId;
-
-        public string sn;
-
-        public string lanIp;
-
-        public string battery;
-
-        public string handleBattery;
-
-        public string totalMemory;
-
-        public string memory;
-
-        public string packVersion;
-
-        public string packVersionOfServer;
-
-        public string romVersion;
-
-        public string clientId;
-
-        public string clientName;
-
-        public string clientCode;
-
-        public string deviceStatus;
-    }
 }
