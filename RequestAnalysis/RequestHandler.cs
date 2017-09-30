@@ -9,13 +9,11 @@ namespace RequestAnalysis
 {
     public class RequestHandler
     {
-        private string _url;
+        private readonly string _url;
 
-        private int _interTime;
-        public RequestHandler(string url, string interTime, string url1, int interTime1)
+        public RequestHandler(string url)
         {
-            _url = url1;
-            _interTime = interTime1;
+            _url = url;
         }
 
         public string GetRequest()
@@ -45,9 +43,9 @@ namespace RequestAnalysis
                 // 读取结束
                 sReader.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                content = new StringBuilder("Runtime Error");
+                content = new StringBuilder(ex.Message);
             }
 
             return content.ToString();
