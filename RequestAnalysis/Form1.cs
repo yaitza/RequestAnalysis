@@ -33,7 +33,7 @@ namespace RequestAnalysis
         private void btnStart_Click(object sender, EventArgs e)
         {
             UpdateConfigInfo();
-            
+
             Thread th = new Thread(RequestUrl);
             th.Start();
         }
@@ -46,7 +46,7 @@ namespace RequestAnalysis
                 StringAnalysis sa = new StringAnalysis(rh.GetRequest());
 
                 List<DeviceInfo> diList = sa.GetDeviceInfos();
-                string showMessage = string.Format($"共计设备：{diList.Count},在线设备：{diList.Count(item => item.lanIp != null)}");
+                string showMessage = string.Format($"共计设备：{diList.Count},VR设备：{diList.Count(item => item.clientCode.Equals("VR"))},在线设备：{diList.Count(item => item.lanIp != null)}");
                 foreach (DeviceInfo deviceInfo in diList)
                 {
                     CSVFileOperator cfo = new CSVFileOperator(deviceInfo);
@@ -82,7 +82,7 @@ namespace RequestAnalysis
             if (this.rtbMsgOutput.InvokeRequired)
             {
                 DisplayMessage dm = new DisplayMessage(OutputShow);
-                this.Invoke(dm, new object[] { msg , color});
+                this.Invoke(dm, new object[] { msg, color });
             }
             else
             {
