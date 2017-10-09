@@ -70,7 +70,7 @@
             // 
             this.tbInternalTime.Location = new System.Drawing.Point(88, 51);
             this.tbInternalTime.Name = "tbInternalTime";
-            this.tbInternalTime.Size = new System.Drawing.Size(100, 21);
+            this.tbInternalTime.Size = new System.Drawing.Size(99, 21);
             this.tbInternalTime.TabIndex = 3;
             // 
             // btnStart
@@ -101,11 +101,14 @@
             // 
             // rtbMsgOutput
             // 
+            this.rtbMsgOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbMsgOutput.BackColor = System.Drawing.SystemColors.WindowText;
             this.rtbMsgOutput.ForeColor = System.Drawing.SystemColors.Window;
-            this.rtbMsgOutput.Location = new System.Drawing.Point(4, 108);
+            this.rtbMsgOutput.Location = new System.Drawing.Point(1, 108);
             this.rtbMsgOutput.Name = "rtbMsgOutput";
-            this.rtbMsgOutput.Size = new System.Drawing.Size(548, 305);
+            this.rtbMsgOutput.Size = new System.Drawing.Size(558, 309);
             this.rtbMsgOutput.TabIndex = 6;
             this.rtbMsgOutput.Text = "";
             // 
@@ -119,6 +122,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "RequestAnalysis";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

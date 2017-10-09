@@ -87,6 +87,8 @@ namespace RequestAnalysis
             di.packVersion = GetKeyValue(dic, "packVersion");
             di.packVersionOfServer = GetKeyValue(dic, "packVersionOfServer");
             di.romVersion = GetKeyValue(dic, "romVersion");
+            di.alias = GetKeyValue(dic, "alias");
+            di.charging = GetKeyValue(dic, "charging");
             di.clientID = GetKeyValue(dic, "clientID");
             di.clientName = GetKeyValue(dic, "clientName");
             di.clientCode = GetKeyValue(dic, "clientCode");
