@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace RequestAnalysis
 {
@@ -21,7 +22,7 @@ namespace RequestAnalysis
             {
                 using (StreamWriter sw = new StreamWriter(this._csvFileDirectory, true))
                 {
-                    string strDevice = $"deviceID,sn,lanIp,battery,handleBattery,totalMemory,memory," +
+                    string strDevice = $"time,deviceID,sn,lanIp,battery,handleBattery,totalMemory,memory," +
                                        $"packVersion,packVersionOfServer,romVersion,alias,charging,clientID," +
                                        $"clientName,clientCode,deviceStatus";
                     sw.WriteLine(strDevice);
@@ -33,6 +34,30 @@ namespace RequestAnalysis
             {
                 sw.WriteLine(this._deviceInfo.ToString());
                 sw.Close();
+            }
+        }
+    }
+
+    public class TXTFileOperator
+    {
+        private string _inputStr;
+
+        private string _txtFileDirectory; 
+
+        public TXTFileOperator(string inputStr)
+        {
+            this._inputStr = inputStr;
+            string directory = System.IO.Directory.GetCurrentDirectory();
+            this._txtFileDirectory = $"{directory}\\{"Total"}.txt";
+        }
+
+        public void WriteShowMsgIntoTxtFile()
+        {
+            using (StreamWriter sw = new StreamWriter(this._txtFileDirectory, true))
+            {
+                sw.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff")}  {this._inputStr}");
+                sw.Close();
+                
             }
         }
     }

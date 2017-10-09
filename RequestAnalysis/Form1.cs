@@ -54,6 +54,8 @@ namespace RequestAnalysis
                 }
 
                 ShowMessageOperator.ShowMessage(showMessage, Color.White);
+                TXTFileOperator tfo = new TXTFileOperator(showMessage);
+                tfo.WriteShowMsgIntoTxtFile();
 
                 Thread.Sleep(this.internalTime);
             }

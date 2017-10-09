@@ -70,7 +70,7 @@
             // 
             this.tbInternalTime.Location = new System.Drawing.Point(88, 51);
             this.tbInternalTime.Name = "tbInternalTime";
-            this.tbInternalTime.Size = new System.Drawing.Size(100, 21);
+            this.tbInternalTime.Size = new System.Drawing.Size(99, 21);
             this.tbInternalTime.TabIndex = 3;
             // 
             // btnStart
