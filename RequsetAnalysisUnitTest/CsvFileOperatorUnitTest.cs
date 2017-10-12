@@ -33,7 +33,7 @@ namespace RequsetAnalysisUnitTest
             string str = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff");
             foreach (var item in sa.GetDeviceInfos())
             {
-                CSVFileOperator cfo = new CSVFileOperator(item);
+                CsvFileOperator cfo = new CsvFileOperator(item);
                 cfo.WriteDeviceInfoIntoCsvFile();
             }
 

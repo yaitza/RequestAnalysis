@@ -46,18 +46,42 @@ namespace RequestAnalysis
                 StringAnalysis sa = new StringAnalysis(rh.GetRequest());
 
                 List<DeviceInfo> diList = sa.GetDeviceInfos();
-                string showMessage = string.Format($"共计设备：{diList.Count},VR设备：{diList.Count(item => item.clientCode.Equals("VR"))},在线设备：{diList.Count(item => item.lanIp != null)}");
+                string showMessage = string.Format($"共计设备：{diList.Count}," +
+                                                   $"VR设备：{diList.Count(item => (item.clientCode != null && item.clientCode.Equals("VR")))}," +
+                                                   $"在线设备：{diList.Count(item => item.lanIp != null)}");
                 foreach (DeviceInfo deviceInfo in diList)
                 {
-                    CSVFileOperator cfo = new CSVFileOperator(deviceInfo);
+                    //                    Thread th = new Thread(new ParameterizedThreadStart(CollectInfo));
+                    //                    th.Start(deviceInfo);
+
+                    CsvFileOperator cfo = new CsvFileOperator(deviceInfo);
                     cfo.WriteDeviceInfoIntoCsvFile();
+//                    if (deviceInfo.lanIp != null)
+//                    {
+//                        CmdExecute ce = new CmdExecute();
+//                        ShowMessageOperator.ShowMessage(ce.ExcutePing(deviceInfo.lanIp), Color.Aqua);
+//                        ShowMessageOperator.ShowMessage(ce.ExecuteNetty(deviceInfo.lanIp, "9999"), Color.Aqua);
+//                    }
                 }
 
                 ShowMessageOperator.ShowMessage(showMessage, Color.White);
-                TXTFileOperator tfo = new TXTFileOperator(showMessage);
+                TxtFileOperator tfo = new TxtFileOperator(showMessage);
                 tfo.WriteShowMsgIntoTxtFile();
 
                 Thread.Sleep(this.internalTime);
+            }
+        }
+
+        public void CollectInfo(object obj)
+        {
+            DeviceInfo deviceInfo = (DeviceInfo)obj;
+            CsvFileOperator cfo = new CsvFileOperator(deviceInfo);
+            cfo.WriteDeviceInfoIntoCsvFile();
+            if (deviceInfo.lanIp != null)
+            {
+                CmdExecute ce = new CmdExecute();
+                ShowMessageOperator.ShowMessage(ce.ExcutePing(deviceInfo.lanIp), Color.Aqua);
+                ShowMessageOperator.ShowMessage(ce.ExecuteNetty(deviceInfo.lanIp, "9999"), Color.Aqua);
             }
         }
 

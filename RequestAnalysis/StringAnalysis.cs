@@ -69,7 +69,7 @@ namespace RequestAnalysis
             string[] propertyArray = strDevice.Split(',');
             foreach (string property in propertyArray)
             {
-                if (property.Equals(""))
+                if (property.Equals("") || property.Equals("null"))
                 {
                     continue;
                 }

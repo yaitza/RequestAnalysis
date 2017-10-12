@@ -38,7 +38,7 @@ namespace RequestAnalysis
 
         public override string ToString()
         {
-            return $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff")},{this.deviceID},{this.sn},{this.lanIp},{this.battery},{this.handleBattery},{this.totalMemory},{this.memory}," +
+            return $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},{this.deviceID},{this.sn},{this.lanIp},{this.battery},{this.handleBattery},{this.totalMemory},{this.memory}," +
                    $"{this.packVersion},{this.packVersionOfServer},{this.romVersion},{this.alias},{this.charging},{this.clientID}," +
                    $"{this.clientName},{this.clientCode},{this.deviceStatus}";
         }
