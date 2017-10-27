@@ -36,6 +36,8 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rtbMsgOutput = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ThreadCounttB = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +77,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(376, 51);
+            this.btnStart.Location = new System.Drawing.Point(406, 51);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 4;
@@ -87,6 +89,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.ThreadCounttB);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.tbRequestUrl);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.label1);
@@ -111,6 +115,22 @@
             this.rtbMsgOutput.Size = new System.Drawing.Size(558, 309);
             this.rtbMsgOutput.TabIndex = 6;
             this.rtbMsgOutput.Text = "";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(212, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "线程数：";
+            // 
+            // ThreadCounttB
+            // 
+            this.ThreadCounttB.Location = new System.Drawing.Point(272, 51);
+            this.ThreadCounttB.Name = "ThreadCounttB";
+            this.ThreadCounttB.Size = new System.Drawing.Size(100, 21);
+            this.ThreadCounttB.TabIndex = 6;
             // 
             // Form1
             // 
@@ -138,6 +158,8 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RichTextBox rtbMsgOutput;
+        private System.Windows.Forms.TextBox ThreadCounttB;
+        private System.Windows.Forms.Label label3;
     }
 }
 

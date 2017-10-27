@@ -33,9 +33,18 @@ namespace RequestAnalysis
         private void btnStart_Click(object sender, EventArgs e)
         {
             UpdateConfigInfo();
+            int threadCount = 1;
+            if (!string.IsNullOrEmpty(this.ThreadCounttB.Text))
+            {
+                threadCount = int.Parse(this.ThreadCounttB.Text);
+            }
 
-            Thread th = new Thread(RequestUrl);
-            th.Start();
+            for (int i = 0; i < threadCount; i++)
+            {
+                Thread th = new Thread(RequestUrl);
+                th.Start();
+            }
+
         }
 
         private void RequestUrl()
@@ -43,30 +52,40 @@ namespace RequestAnalysis
             while (true)
             {
                 RequestHandler rh = new RequestHandler(this.requestUrl);
-                StringAnalysis sa = new StringAnalysis(rh.GetRequest());
 
-                List<DeviceInfo> diList = sa.GetDeviceInfos();
-                string showMessage = string.Format($"共计设备：{diList.Count}," +
-                                                   $"VR设备：{diList.Count(item => (item.clientCode != null && item.clientCode.Equals("VR")))}," +
-                                                   $"在线设备：{diList.Count(item => item.lanIp != null)}");
-                foreach (DeviceInfo deviceInfo in diList)
+                if (this.requestUrl.Contains("device"))
                 {
-                    //                    Thread th = new Thread(new ParameterizedThreadStart(CollectInfo));
-                    //                    th.Start(deviceInfo);
+                    StringAnalysis sa = new StringAnalysis(rh.GetRequest());
 
-                    CsvFileOperator cfo = new CsvFileOperator(deviceInfo);
-                    cfo.WriteDeviceInfoIntoCsvFile();
-//                    if (deviceInfo.lanIp != null)
-//                    {
-//                        CmdExecute ce = new CmdExecute();
-//                        ShowMessageOperator.ShowMessage(ce.ExcutePing(deviceInfo.lanIp), Color.Aqua);
-//                        ShowMessageOperator.ShowMessage(ce.ExecuteNetty(deviceInfo.lanIp, "9999"), Color.Aqua);
-//                    }
+                    List<DeviceInfo> diList = sa.GetDeviceInfos();
+                    string showMessage = string.Format($"共计设备：{diList.Count}," +
+                                                       $"VR设备：{diList.Count(item => (item.clientCode != null && item.clientCode.Equals("VR")))}," +
+                                                       $"在线设备：{diList.Count(item => item.lanIp != null)}");
+                    foreach (DeviceInfo deviceInfo in diList)
+                    {
+                        //                    Thread th = new Thread(new ParameterizedThreadStart(CollectInfo));
+                        //                    th.Start(deviceInfo);
+
+                        CsvFileOperator cfo = new CsvFileOperator(deviceInfo);
+                        cfo.WriteDeviceInfoIntoCsvFile();
+                        //                    if (deviceInfo.lanIp != null)
+                        //                    {
+                        //                        CmdExecute ce = new CmdExecute();
+                        //                        ShowMessageOperator.ShowMessage(ce.ExcutePing(deviceInfo.lanIp), Color.Aqua);
+                        //                        ShowMessageOperator.ShowMessage(ce.ExecuteNetty(deviceInfo.lanIp, "9999"), Color.Aqua);
+                        //                    }
+                    }
+
+                    ShowMessageOperator.ShowMessage(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff") + " " + showMessage, Color.White);
+                    TxtFileOperator tfo = new TxtFileOperator(showMessage);
+                    tfo.WriteShowMsgIntoTxtFile();
+                }
+                else
+                {
+                    ShowMessageOperator.ShowMethod(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff"), Color.Aqua);
+                    ShowMessageOperator.ShowMessage(rh.GetRequest(), Color.White);
                 }
 
-                ShowMessageOperator.ShowMessage(showMessage, Color.White);
-                TxtFileOperator tfo = new TxtFileOperator(showMessage);
-                tfo.WriteShowMsgIntoTxtFile();
 
                 Thread.Sleep(this.internalTime);
             }
@@ -88,17 +107,22 @@ namespace RequestAnalysis
 
         private void UpdateConfigInfo()
         {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (!this.tbRequestUrl.Text.Trim().ToLower().Equals(this.requestUrl.ToLower()))
             {
-                ConfigurationSettings.AppSettings["ReuqestUrl"] = this.tbRequestUrl.Text.Trim();
-                this.requestUrl = this.tbInternalTime.Text.Trim();
+                config.AppSettings.Settings["ReuqestUrl"].Value = this.tbRequestUrl.Text.Trim();
+                //                ConfigurationSettings.AppSettings["ReuqestUrl"] = this.tbRequestUrl.Text.Trim();
+                this.requestUrl = this.tbRequestUrl.Text.Trim();
             }
 
             if (int.Parse(this.tbInternalTime.Text.Trim()) != this.internalTime)
             {
-                ConfigurationSettings.AppSettings["IntervalTime"] = this.internalTime.ToString();
+                config.AppSettings.Settings["IntervalTime"].Value = this.internalTime.ToString();
+                //                ConfigurationSettings.AppSettings["IntervalTime"] = this.internalTime.ToString();
                 this.internalTime = int.Parse(this.tbInternalTime.Text.Trim());
             }
+            config.Save();
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         private delegate void DisplayMessage(string msg, Color color);
